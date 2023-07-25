@@ -211,4 +211,7 @@ VALUES ("F1","David",4,"F5"),
        ("F5","Maryam",40,"F6"),
        ("F6","Stewart",70),
        ("F7","Rohan",6,"F4"),
-       ("F8","Asha",8,"F4");
+       ("F8","Asha",8,"F4");  
+
+/*FETCH THE CHILD AND THEIR RESPECTIVE PARENT NAME FROM FAMILY*/
+select f1.name as child_name,f2.name AS parent_name from FAMILY f1 JOIN FAMILY f2 on f1.parent_id = f2.member_id;
