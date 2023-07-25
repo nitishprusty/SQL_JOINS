@@ -55,6 +55,15 @@ VALUES ("P1","Data Migration","E1"),
        ("P2","ETL TOOL","E1"),
        ("P2","ETL TOOL","M4");
 
+/*COMPANY TABLE*/
+CREATE TABLE COMPANY(
+   company_id VARCHAR(20),
+   company_name varchar(50),
+   company_location VARCHAR(50)
+);
+
+INSERT INTO COMPANY(company_id,company_name,company_location)
+VALUES ("ACC01","Accenture","Hyderabad");
 
 /*FETCH DATA OF RESPECTIVE TABLE*/
 SELECT * FROM EMPLOYEE;
@@ -135,11 +144,71 @@ left join Projects p on e.emp_id = p.team_member_id;
 
 /*
 emp_name 	manager_name	dept_name	proj_name
-RAHUL	    Prem	         IT	        Data Migration
-RAHUL	    Prem	         IT	        ETL TOOL
-Manoj	    Prem	         IT	        Data Migration
-James	    Shripadh	     HR	        null
-Michael	    Shripadh	     HR	        null
-Ali	        Nick		     null       null
-Robin	    Nick		     null       null
+RAHUL	      Prem	         IT	        Data Migration
+RAHUL	      Prem	         IT	        ETL TOOL
+Manoj	      Prem	         IT	        Data Migration
+James	      Shripadh	      HR	        null
+Michael	   Shripadh	      HR	        null
+Ali	      Nick		      null       null
+Robin	      Nick		      null       null
 */
+
+/*FETCH ALL EMPLOYEE NAME AND ALL DEPARTMENT NAME*/
+SELECT e.emp_name,d.dept_name from Employee e FULL OUTER JOIN DEPARTMENT d on e.emp_id = d.dept_id;
+
+/*
+   RAHUL - IT
+   MANOJ - IT
+   JAMES - HR
+   MICHAEL - HR
+   ALI - NULL
+   ROBIN - NULL
+   null - FINANCE
+   null - Admin
+
+*/
+
+/*
+   FULL OUTER JOIN = MATCHING RECORD OF BOTH TABLE + ADDITIONAL DATA FROM LEFT TABLE + ADDITIONAL DATA FROM RIGHT TABLE
+*/
+
+/*CROSS JOIN*/
+/*FETCH THE EMPLOYEE NAME AND THEIR CORRESPONDING DEPT_NAME ALONG WITH COMPANY NAME*/
+
+SELECT e.emp_name,d.dept_name,c.company_name,c.company_location
+from EMPLOYEE e 
+inner join DEPARTMENT d on e.dept_id = d.dept_id
+cross join COMPANY c;
+
+/* 
+   e.emp_name  d.dept_name  c.company_name  c.company_location
+   RAHUL       IT           Accenture       Hyderabad
+   MANOJ       IT           Accenture       Hyderabad
+   JAMES       HR           Accenture       Hyderabad
+   MICHAEL     HR           Accenture       Hyderabad
+*/
+
+
+/*NATURAL JOINS*/
+/* In natural join the condition is decided by sql not by user */
+
+SELECT e.emp_name,d.dept_name from Employee e natural join Department d;
+
+/*SELF JOIN*/
+
+CREATE TABLE FAMILY(
+   member_id VARCHAR(20),
+   name varchar(50),
+   age integer,
+   parent_id VARCHAR(20)
+);
+
+INSERT INTO FAMILY(member_id,name,age,parent_id)
+VALUES ("F1","David",4,"F5"),
+       ("F2","Carol",10,"F5"),
+       ("F3","Michael",12,"F5"),
+       ("F4","Johnson",36),
+       ("F5","Maryam",40,"F6"),
+       ("F6","Stewart",70),
+       ("F7","Rohan",6,"F4"),
+       ("F8","Asha",8,"F4");
